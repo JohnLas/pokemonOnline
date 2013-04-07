@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>playercontrol</name>
+    <events>
+        <include>monsterSlot</include>
+        <include>map</include>
+        <include>Npc</include>
+        <include>battle</include>
+        <include>herbs</include>
+        <variable constant="0" name="PosX" static="0" type="number">0</variable>
+        <variable constant="0" name="PosY" static="0" type="number">0</variable>
+        <variable constant="0" name="SetControl" static="0" type="number">0</variable>
+        <variable constant="0" name="Command" static="0" type="number">0</variable>
+        <variable constant="0" name="TileSize" static="0" type="number">12</variable>
+        <event-block>
+            <conditions>
+                <condition id="-6" name="Every X seconds" type="System">
+                    <param id="0" name="Interval (seconds)">0.1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-4" name="Set position to another object" type="HerbDetect">
+                    <param id="0" name="Object">player</param>
+                    <param id="1" name="Image point (optional)">1</param>
+                </action>
+                <action id="-4" name="Set position to another object" type="playerbox">
+                    <param id="0" name="Object">player</param>
+                    <param id="1" name="Image point (optional)">2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="2" name="Set ignoring input" type="player">
+                    <param id="0" name="Input">1</param>
+                </action>
+                <action id="-1" name="Set X" type="Mire">
+                    <param id="0" name="X">player.X</param>
+                </action>
+                <action id="-2" name="Set Y" type="Mire">
+                    <param id="0" name="Y">player.Y</param>
+                </action>
+                <action id="-1" name="Set X" type="playerbox">
+                    <param id="0" name="X">PosX</param>
+                </action>
+                <action id="-2" name="Set Y" type="playerbox">
+                    <param id="0" name="Y">PosY</param>
+                </action>
+                <action id="-1" name="Set X" type="playerbox">
+                    <param id="0" name="X">PosX</param>
+                </action>
+                <action id="-2" name="Set Y" type="playerbox">
+                    <param id="0" name="Y">PosY</param>
+                </action>
+                <action id="-4" name="Set layer visible" type="System">
+                    <param id="0" name="Layer">4</param>
+                    <param id="1" name="Visibility">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="Mire">
+                    <param id="0" name="Pin to">player</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">SetControl</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set selection" type="List">
+                            <param id="0" name="Index">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">SetControl</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set selection" type="List">
+                            <param id="0" name="Index">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-group description="" title="Control">
+            <sub-events>
+                <event-group description="" title="PlayerMovement">
+                    <sub-events>
+                        <event-block any="1">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">90</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">180</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">270</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">TargetX</param>
+                                    <param id="1" name="Value">Self.X + cos(Self.Direction) * TileSize</param>
+                                </action>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">TargetY</param>
+                                    <param id="1" name="Value">Self.Y + sin(Self.Direction) * TileSize</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block any="1">
+                                    <conditions>
+                                        <condition id="1" inverted="1" name="Is overlapping another object" type="playerbox">
+                                            <param id="0" name="Object">Wall</param>
+                                        </condition>
+                                        <condition id="1" inverted="1" name="Is overlapping another object" type="playerbox">
+                                            <param id="0" name="Object">WallAngles</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action behavior="Bullet" id="0" name="Set speed" type="player">
+                                            <param id="0" name="Speed">TileSize / Self.MoveDuration</param>
+                                        </action>
+                                        <action behavior="Bullet" id="3" name="Set angle of motion" type="player">
+                                            <param id="0" name="Angle">player.Direction</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block any="1">
+                                    <conditions>
+                                        <condition id="1" name="Is overlapping another object" type="playerbox">
+                                            <param id="0" name="Object">TiledSolids</param>
+                                        </condition>
+                                        <condition id="1" name="Is overlapping another object" type="playerbox">
+                                            <param id="0" name="Object">SpriteSolids</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="2" name="Stop" type="player" />
+                                        <action behavior="Bullet" id="0" name="Set speed" type="player">
+                                            <param id="0" name="Speed">0</param>
+                                        </action>
+                                        <action id="6" name="Set speed" type="player">
+                                            <param id="0" name="Speed">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="Controls for a floating(center on touch) based joystick. The method for hiding the control is arbitrary and you can do any way you want." title="Joystick">
+                    <sub-events>
+                        <variable constant="0" name="relativeX" static="0" type="number">0</variable>
+                        <variable constant="0" name="relativeY" static="0" type="number">0</variable>
+                        <variable constant="0" name="touchID" static="1" type="number">-1</variable>
+                        <variable constant="0" name="dist" static="0" type="number">0</variable>
+                        <variable constant="0" name="cangle" static="0" type="number">0</variable>
+                        <variable comment="distance the stick can move from center" constant="0" name="radius" static="1" type="number">10</variable>
+                        <event-block>
+                            <conditions>
+                                <condition id="-3" inverted="1" name="Is on-screen" type="fanaPad" />
+                            </conditions>
+                            <actions>
+                                <action behavior="Bullet" id="0" name="Set speed" type="player">
+                                    <param id="0" name="Speed">0</param>
+                                </action>
+                                <action id="2" name="Stop" type="player" />
+                                <action id="5" name="Set frame" type="player">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-3" name="Is on-screen" type="fanaPad" />
+                                <condition id="-6" name="Every X seconds" type="System">
+                                    <param id="0" name="Interval (seconds)">0.1</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">XP</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">YP</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="player">
+                                            <param id="0" name="Animation">&quot;A0&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="player">
+                                            <param id="0" name="Instance variable">Direction</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">Command</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">YP</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">XP</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="player">
+                                            <param id="0" name="Animation">&quot;A90&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="player">
+                                            <param id="0" name="Instance variable">Direction</param>
+                                            <param id="1" name="Value">90</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">Command</param>
+                                            <param id="1" name="Value">90</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">XP</param>
+                                            <param id="1" name="Comparison">2</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">YP</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="player">
+                                            <param id="0" name="Animation">&quot;A180&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="player">
+                                            <param id="0" name="Instance variable">Direction</param>
+                                            <param id="1" name="Value">180</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">Command</param>
+                                            <param id="1" name="Value">180</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">YP</param>
+                                            <param id="1" name="Comparison">2</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                        <condition id="-7" name="Compare instance variable" type="fanaStick">
+                                            <param id="0" name="Instance variable">XP</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="player">
+                                            <param id="0" name="Animation">&quot;A270&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="player">
+                                            <param id="0" name="Instance variable">Direction</param>
+                                            <param id="1" name="Value">270</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">Command</param>
+                                            <param id="1" name="Value">270</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On touched object" type="Touch">
+                                    <param id="0" name="Object">fanaRangeBox</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">touchID</param>
+                                    <param id="1" name="Value">touch.TouchID</param>
+                                </action>
+                                <action id="-3" name="Set position" type="fanaPad">
+                                    <param id="0" name="X">touch.AbsoluteXForID(touchId)</param>
+                                    <param id="1" name="Y">touch.AbsoluteYForID(touchId)</param>
+                                </action>
+                                <action id="-4" name="Set position to another object" type="fanaStick">
+                                    <param id="0" name="Object">fanaPad</param>
+                                    <param id="1" name="Image point (optional)">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" name="Is in touch" type="Touch" />
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">touchID</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">dist</param>
+                                    <param id="1" name="Value">distance(fanaPad.X, fanaPad.Y, touch.AbsoluteXForID(touchID), touch.AbsoluteYForID(touchID))</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">cangle</param>
+                                    <param id="1" name="Value">angle(fanaPad.X, fanaPad.Y, touch.AbsoluteXForID(touchID), touch.AbsoluteYForID(touchID))</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">abs(cos(cangle))</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Second value">abs(sin(cangle))</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">relativeX</param>
+                                            <param id="1" name="Value">(cos(cangle) * (dist &lt; radius ? dist :  radius))</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">relativeY</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">relativeX</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">relativeY</param>
+                                            <param id="1" name="Value">(sin(cangle) * (dist &lt; radius ? dist :  radius))</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions />
+                                    <actions>
+                                        <action id="-3" name="Set position" type="fanaStick">
+                                            <param id="0" name="X">relativeX + fanaPad.X</param>
+                                            <param id="1" name="Y">relativeY + fanaPad.Y</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="fanaStick">
+                                            <param id="0" name="Instance variable">conAngle</param>
+                                            <param id="1" name="Value">cangle</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="fanaStick">
+                                            <param id="0" name="Instance variable">XP</param>
+                                            <param id="1" name="Value">((fanaStick.X - fanaPad.X)  / radius) * 100</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="fanaStick">
+                                            <param id="0" name="Instance variable">YP</param>
+                                            <param id="1" name="Value">((fanaStick.Y - fanaPad.Y)  / radius) * 100</param>
+                                        </action>
+                                        <action id="0" name="Set text" type="fanaTXT">
+                                            <param id="0" name="Text">&quot;angle: &quot; &amp; floor(cangle) &amp;  &quot;     XP: &quot; &amp; floor(fanaStick.XP) &amp; &quot;     YP: &quot; &amp; floor(fanaStick.YP)&amp; &quot;     Command: &quot; &amp; command</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="1" name="On any touch end" type="Touch" />
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">touchID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">touch.TouchID</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Set position" type="fanaPad">
+                                    <param id="0" name="X">-1000</param>
+                                    <param id="1" name="Y">0</param>
+                                </action>
+                                <action id="-4" name="Set position to another object" type="fanaStick">
+                                    <param id="0" name="Object">fanaPad</param>
+                                    <param id="1" name="Image point (optional)">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">touchID</param>
+                                    <param id="1" name="Value">-1</param>
+                                </action>
+                                <action id="0" name="Set text" type="fanaTXT">
+                                    <param id="0" name="Text">&quot;fana&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Keyboard">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">39 (Right arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">Direction</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="4" name="Set animation" type="player">
+                                    <param id="0" name="Animation">&quot;A0&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">40 (Down arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">Direction</param>
+                                    <param id="1" name="Value">90</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Value">90</param>
+                                </action>
+                                <action id="4" name="Set animation" type="player">
+                                    <param id="0" name="Animation">&quot;A90&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">37 (Left arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">Direction</param>
+                                    <param id="1" name="Value">180</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Value">180</param>
+                                </action>
+                                <action id="4" name="Set animation" type="player">
+                                    <param id="0" name="Animation">&quot;A180&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">38 (Up arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" type="player">
+                                    <param id="0" name="Instance variable">Direction</param>
+                                    <param id="1" name="Value">270</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Command</param>
+                                    <param id="1" name="Value">270</param>
+                                </action>
+                                <action id="4" name="Set animation" type="player">
+                                    <param id="0" name="Animation">&quot;A270&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" inverted="1" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">38 (Up arrow)</param>
+                                </condition>
+                                <condition id="2" inverted="1" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">39 (Right arrow)</param>
+                                </condition>
+                                <condition id="2" inverted="1" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">40 (Down arrow)</param>
+                                </condition>
+                                <condition id="2" inverted="1" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">37 (Left arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Bullet" id="0" name="Set speed" type="player">
+                                    <param id="0" name="Speed">0</param>
+                                </action>
+                                <action id="2" name="Stop" type="player" />
+                                <action id="5" name="Set frame" type="player">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

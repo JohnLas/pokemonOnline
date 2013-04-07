@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>battle</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On clicked" type="Button" />
+            </conditions>
+            <actions>
+                <action id="-2" name="Go to layout" type="System">
+                    <param id="0" name="Layout">Map</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;Encounter&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;Control&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;EncounterRate&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;MoveNpc&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">EncounterRate</param>
+                    <param id="1" name="Value">10</param>
+                </action>
+                <action behavior="Turret2" id="2" name="Clear targets" type="dresseurs" />
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

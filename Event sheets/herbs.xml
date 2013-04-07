@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>herbs</name>
+    <events>
+        <variable constant="0" name="EncounterRate" static="0" type="number">10</variable>
+        <event-group description="" title="Encounter">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" type="HerbDetect">
+                            <param id="0" name="Object">Herbes</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block any="1">
+                            <conditions>
+                                <condition behavior="Bullet" id="0" name="Compare speed" type="player">
+                                    <param id="0" name="Comparison">4</param>
+                                    <param id="1" name="Speed">0</param>
+                                </condition>
+                                <condition behavior="8Direction" id="0" name="Is moving" type="player" />
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-6" name="Every X seconds" type="System">
+                                            <param id="0" name="Interval (seconds)">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">EncounterRate</param>
+                                            <param id="1" name="Value">ceil(random(10))</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" title="EncounterRate">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">EncounterRate</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Call function" type="Function">
+                            <param id="0" name="Name">&quot;BattleStart&quot;</param>
+                            <param id="1" name="Parameter {n}"></param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">EncounterRate</param>
+                            <param id="1" name="Comparison">4</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On function" type="Function">
+                    <param id="0" name="Name">&quot;BattleStart&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;Encounter&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;Control&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;EncounterRate&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action behavior="Bullet" id="0" name="Set speed" type="player">
+                    <param id="0" name="Speed">0</param>
+                </action>
+                <action id="2" name="Stop" type="player" />
+                <action id="5" name="Set frame" type="player">
+                    <param id="0" name="Frame number">0</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">2</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">4</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">6</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">8</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">10</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">12</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">14</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">16</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">18</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">20</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">22</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">24</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">26</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.1</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">28</param>
+                </action>
+                <action id="-2" name="Go to layout" type="System">
+                    <param id="0" name="Layout">Battle</param>
+                </action>
+                <action id="-31" name="Set layout effect parameter" type="System">
+                    <param id="0" name="Effect">&quot;RadialPixellate&quot;</param>
+                    <param id="1" name="Parameter index">0</param>
+                    <param id="2" name="Value">1</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">PosX</param>
+                    <param id="1" name="Value">player.X</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">PosY</param>
+                    <param id="1" name="Value">player.Y</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">SetControl</param>
+                    <param id="1" name="Value">List.Set</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
